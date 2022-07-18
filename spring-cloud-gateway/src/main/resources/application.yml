@@ -1,0 +1,47 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: zuul-proxy
+
+#ribbon:
+# eureka:
+#  enabled: true  
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka
+  instance:
+    preferIpAddress: true
+
+zuul:
+  routes:
+#    product-service:
+#      path: /product/**
+#      serviceId: product-service
+#    order-service:
+#      path: /order/**
+#      service-id: order-service
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+#    employee-service:
+#      path: /employees/**
+#      service-id: employee-service
+    sensitive-headers: Cookie,Set-Cookie
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 3000
+  
+    
+hystrix:
+  command:
+  default:
+    execution:
+      isolation:
+        thread:
+          timeoutInMilliseconds: 1100   
